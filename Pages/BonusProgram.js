@@ -2,11 +2,10 @@ const { BasePage } = require('./basePage.js');
 const { By } = require('selenium-webdriver');
 const assert = require('assert');
 
-class SearchGood extends BasePage {
+class BonusProgram extends BasePage {
   constructor() {
     super();
   }
-
   async maximizeWindow() {
     await this.driver.manage().window().maximize();
   }
@@ -27,10 +26,14 @@ class SearchGood extends BasePage {
       res = false;
       assert.strictEqual(res, true);
     }
+    return res;
   }
   async driverQuit() {
     await this.driver.quit();
   }
+  async insertTextInSearchField(xpath, text) {
+    await this.driver.findElement(By.xpath(xpath)).sendKeys(text);
+  }
 }
 
-module.exports.SearchGood = SearchGood;
+module.exports.BonusProgram = BonusProgram;

@@ -17,7 +17,7 @@ class OpenContacts extends BasePage {
     let pageTitle = await this.driver.getTitle().then(function (title) {
       return title;
     });
-    assert.strictEqual(pageTitle, 'Контакты');
+    return pageTitle;
   }
 
   async driverQuit() {
