@@ -8,6 +8,8 @@ const { SeachFieldTest } = require('../Pages/SeachFieldTest.js');
 const { DeleteGood } = require('../Pages/DeleteGood.js');
 const { ClearForm } = require('../Pages/ClearForm.js');
 const { BonusProgram } = require('../Pages/BonusProgram.js');
+const { SendMessage } = require('../Pages/SendMessage.js');
+const { driver } = require('../Driver/Driver.js');
 class Steps {
   initBrowser() {
     this.driver = DriverInstance.getInstance();
@@ -235,6 +237,64 @@ class Steps {
 
     await enterDataField.driverSleep(5000);
     await enterDataField.driverQuit();
+    return true;
+  }
+  async TestSendMessage() {
+    const sendMessage = new SendMessage();
+    await sendMessage.driverGet('https://www.21vek.by/');
+    await sendMessage.findElementByXpathAndClick(
+      '//*[@id="header"]/div/div[3]/div/div/ul[2]/div/div/div/button'
+    );
+
+    await sendMessage.findElementByXpathAndClick(
+      '//*[@id="dropdownCommunications"]/ul/li[8]/a'
+    );
+    await sendMessage.driverSleep(2000);
+
+    await sendMessage.findElementByXpathAndClick(
+      '//*[@id="content"]/div/div[2]/div/button'
+    );
+    await sendMessage.insertTextInSearchField(
+      '//*[@id="modal"]/div/div/div[2]/form/div/div[2]/div[2]/input',
+      'Яуген'
+    );
+    await sendMessage.insertTextInSearchField(
+      '//*[@id="modal"]/div/div/div[2]/form/div/div[5]/div[2]/textarea',
+      'Яуген'
+    );
+    await sendMessage.insertTextInSearchField(
+      '//*[@id="modal"]/div/div/div[2]/form/div/div[3]/div[2]/input',
+      'Яуген'
+    );
+    await sendMessage.findElementByXpathAndClick('//*[@id="agreement"]');
+    await sendMessage.findElementByXpathAndClick(
+      '//*[@id="modal"]/div/div/div[2]/form/div/div[7]/button'
+    );
+    await sendMessage.driverSleep(3000);
+    return true;
+  }
+
+  async TestSendMess2() {
+    const clearForm = new ClearForm();
+    await clearForm.driverGet('https://www.21vek.by/');
+    await clearForm.maximizeWindow();
+    await clearForm.findElementByXpathAndClick(
+      '//*[@id="header"]/div/div[6]/div/div[1]/ul/li[10]/a'
+    );
+    await clearForm.driverSleep(3000);
+    await clearForm.insertTextInSearchField(
+      '//*[@id="j-filter__form"]/div[1]/dl/dd/label[1]/span/input',
+      '50'
+    );
+    await clearForm.insertTextInSearchField(
+      '//*[@id="j-filter__form"]/div[1]/dl/dd/label[2]/span/input',
+      '600'
+    );
+    await clearForm.findElementByXpathAndClick('//*[@id="j-filter__btn"]');
+    await clearForm.driverSleep(4000);
+    await clearForm.findElementByXpathAndClick('//*[@id="j-reset"]');
+    await clearForm.driverSleep(4000);
+    await clearForm.driverQuit();
     return true;
   }
 }
